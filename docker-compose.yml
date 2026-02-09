@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./cloud
+      dockerfile: Dockerfile
+    image: cloud-app:latest
+    ports:
+      - "8081:8081"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped

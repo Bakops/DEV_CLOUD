@@ -1,0 +1,37 @@
+steps:
+  # Étape 1 : Construire l'image Docker à partir du Dockerfile
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/powerpoint-node-repo/powerpoint-node:$SHORT_SHA',
+        '.'
+      ]
+ 
+  # Étape 2 : Pousser l'image dans Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'europe-west1-docker.pkg.dev/$PROJECT_ID/powerpoint-node-repo/powerpoint-node:$SHORT_SHA'
+      ]
+ 
+  # Étape 3 : Déployer sur Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      [
+        'run', 'deploy', 'powerpoint-node',
+        '--image', 'europe-west1-docker.pkg.dev/$PROJECT_ID/powerpoint-node-repo/powerpoint-node:$SHORT_SHA',
+        '--region', 'europe-west1',
+        '--platform', 'managed',
+        '--allow-unauthenticated',
+        '--port', '8081'
+      ]
+ 
+images:
+  - 'europe-west1-docker.pkg.dev/$PROJECT_ID/powerpoint-node-repo/powerpoint-node:$SHORT_SHA'
+ 
+options:
+  logging: CLOUD_LOGGING_ONLY
+  dynamic_substitutions: true
