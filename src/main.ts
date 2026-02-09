@@ -13,6 +13,6 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('/', app, document); // swagger à la racine '/'
 
-    await app.listen(8081);
+    await app.listen(3000);
 }
 bootstrap();
