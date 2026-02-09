@@ -30,4 +30,9 @@ export class ItemsController {
     remove(@Param('id') id: string) {
         return this.service.remove(+id);
     }
+
+    @Get('error')
+    triggerError() {
+        throw new Error('BOMBOCLAT! il y a une erreur.');
+    }
 }
