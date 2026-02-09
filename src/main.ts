@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-
+    const port = process.env.PORT || 8081;
     const config = new DocumentBuilder()
         .setTitle('Demo NestJS CRUD')
         .setDescription('CRUD simple pour le TD')
@@ -13,6 +13,6 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('/', app, document); // swagger à la racine '/'
 
-    await app.listen(8081);
+    await app.listen(port);
 }
 bootstrap();
