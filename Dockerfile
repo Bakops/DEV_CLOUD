@@ -3,7 +3,7 @@ FROM node:18-alpine AS builder
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-RUN npm ci --only=production || npm ci
+RUN npm ci
 
 COPY . .
 RUN npm run build
