@@ -113,5 +113,3 @@ GET /items/:id
 POST /items
 PUT /items/:id
 DELETE /items/:id
-
-RORO
