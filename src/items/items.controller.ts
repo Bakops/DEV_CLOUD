@@ -31,7 +31,7 @@ export class ItemsController {
         return this.service.remove(+id);
     }
 
-    @Get('error')
+    @Get('Bakou')
     triggerError() {
         throw new Error('BOMBOCLAT! il y a une erreur.');
     }
