@@ -20,7 +20,7 @@ steps:
   # Étape 3 : Déployer sur Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
-    args:
+    args: 
       [
         'run', 'deploy', 'powerpoint-node',
         '--image', 'europe-west1-docker.pkg.dev/$PROJECT_ID/powerpoint-node-repo/powerpoint-node:$SHORT_SHA',
