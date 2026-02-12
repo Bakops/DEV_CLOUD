@@ -16,6 +16,7 @@ steps:
         'europe-west1-docker.pkg.dev/$PROJECT_ID/powerpoint-node-repo/powerpoint-node:$SHORT_SHA'
       ]
  
+
   # Étape 3 : Déployer sur Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
@@ -28,6 +29,18 @@ steps:
         '--allow-unauthenticated',
         '--port', '3000'
       ]
+
+  # Étape 4 : Forcer l'accès public via IAM (Cloud Run Invoker)
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - -c
+      - |
+        gcloud run services add-iam-policy-binding powerpoint-node \
+          --region=europe-west1 \
+          --platform=managed \
+          --member=allUsers \
+          --role=roles/run.invoker
  
 images:
   - 'europe-west1-docker.pkg.dev/$PROJECT_ID/powerpoint-node-repo/powerpoint-node:$SHORT_SHA'
